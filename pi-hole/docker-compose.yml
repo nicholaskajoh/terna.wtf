@@ -1,0 +1,26 @@
+# pi-hole.hl.terna.wtf
+# Run: export PIHOLE_WEBPASSWORD=xxxxx && docker compose up -d
+
+version: "3"
+
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+    environment:
+      TZ: "Europe/Amsterdam"
+      WEBPASSWORD: "${PIHOLE_WEBPASSWORD}"
+    volumes:
+      - pihole-data:/etc/pihole
+      - dnsmasq-data:/etc/dnsmasq.d
+    restart: unless-stopped
+
+volumes:
+  pihole-data:
+    driver: local
+  dnsmasq-data:
+    driver: local
