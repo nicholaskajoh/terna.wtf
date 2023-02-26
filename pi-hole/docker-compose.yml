@@ -1,6 +1,3 @@
-# pi-hole.hl.terna.wtf
-# Run: export PIHOLE_WEBPASSWORD=xxxxx && docker compose up -d
-
 version: "3"
 
 services:
