@@ -14,7 +14,10 @@ services:
     volumes:
       - pihole-data:/etc/pihole
       - dnsmasq-data:/etc/dnsmasq.d
+    network_mode: "host"
     restart: unless-stopped
+    cap_add:
+      - NET_ADMIN # For DHCP.
 
 volumes:
   pihole-data:

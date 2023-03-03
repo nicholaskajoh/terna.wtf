@@ -1,0 +1,12 @@
+network:
+  ethernets:
+    ens18: # Find using: ip a
+      addresses:
+      - 10.0.0.10/24
+      routes:
+      - to: default
+        via: 10.0.0.1
+      dhcp4: false
+      nameservers:
+        addresses: [1.1.1.1, 8.8.8.8]
+  version: 2
