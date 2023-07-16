@@ -17,3 +17,5 @@ URL: http://pi-hole.hl.terna.wtf
     ```sh
     sudo tailscale up --accept-dns=false --advertise-routes=10.0.0.0/24
     ```
+
+- Add block lists: https://firebog.net/

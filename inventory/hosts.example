@@ -1,0 +1,26 @@
+# Router
+[tplink]
+10.0.0.1 # tp-link.hl.terna.wtf
+
+# Hypervisor nodes
+[proxmox]
+10.0.0.2 ansible_user=root ansible_password=xxxxx # thanos.hl.terna.wtf
+10.0.0.3 ansible_user=root ansible_password=xxxxx # skywalker.hl.terna.wtf
+
+# Kubernetes nodes
+[clusterfuck]
+10.0.0.20 ansible_user=nicholas ansible_password=xxxxx ansible_sudo_pass=xxxxx # clusterfuck-1.hl.terna.wtf
+10.0.0.21 ansible_user=nicholas ansible_password=xxxxx ansible_sudo_pass=xxxxx # clusterfuck-2.hl.terna.wtf
+10.0.0.22 ansible_user=nicholas ansible_password=xxxxx ansible_sudo_pass=xxxxx # clusterfuck-3.hl.terna.wtf
+
+# DNS server
+[pihole]
+10.0.0.10 ansible_user=nicholask ansible_password=xxxxx ansible_sudo_pass=xxxxx # pi-hole.hl.terna.wtf
+
+# Home automation
+[haos]
+10.0.0.11 ansible_user=nicholas ansible_password=xxxxx # home-assistant.hl.terna.wtf
+
+# Network-attached storage
+[omv]
+10.0.0.12 ansible_user=root ansible_password=xxxxx # openmediavault.hl.terna.wtf

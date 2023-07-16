@@ -1,5 +1,5 @@
 # terna.wtf
-Docs for my home lab.
+Configs and docs for my home lab.
 
 ## Hardware
 - 2x Fujitsu Esprimo Q920 mini PC (Intel Core i5-4590T CPU @ 2.00 GHz, 8 GB DDR3 RAM, 240 GB SSD)
@@ -17,7 +17,8 @@ Docs for my home lab.
 - Prometheus & Grafana: Collection and visualization of metrics for all the software running in the lab.
 - Elastic Stack: Collection and analysis of logs for all the software running in the lab.
 - Kubernetes: Orchestrator and scheduler, for running custom and third-party apps.
-- Rancher: For managing the Kubernetes cluster.
+- Portainer: UI for managing Docker and Kubernetes.
+- Keepalived: Virtual IP for Kubernetes cluster.
 
 ## Projects
 - Home lab dashboard (WIP): Overview of all the software running in the lab.
@@ -30,3 +31,4 @@ Docs for my home lab.
 ## Future projects
 - Home security camera
 - Authoritative DNS
+- TLS for home lab domains

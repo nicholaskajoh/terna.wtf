@@ -1,0 +1,9 @@
+- hosts: proxmox,clusterfuck,pihole,omv
+  become: yes
+  tasks:
+    - name: apt
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: "yes"
+        autoclean: true
+        autoremove: true
