@@ -1,0 +1,23 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: lets-encrypt
+spec:
+  acme:
+    email: labs@terna.wtf
+
+    # Prod
+    server: https://acme-v02.api.letsencrypt.org/directory
+
+    # Staging
+    # server: https://acme-staging-v02.api.letsencrypt.org/directory
+
+    privateKeySecretRef:
+      name: lets-encrypt-account-key
+
+    solvers:
+    - dns01:
+        digitalocean:
+          tokenSecretRef:
+            name: digitalocean-dns
+            key: access-token

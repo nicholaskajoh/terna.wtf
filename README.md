@@ -13,7 +13,7 @@ Configs and docs for my home lab.
 - Home Assistant (HAOS): Home automation system.
 - OpenMediaVault: Network-attached storage (NAS).
 - Tailscale: VPN service.
-- DigitalOcean VM: For running reverse proxy and monitoring software.
+- DigitalOcean VM: For running home lab management and monitoring software.
 - Prometheus & Grafana: Collection and visualization of metrics for all the software running in the lab.
 - Elastic Stack: Collection and analysis of logs for all the software running in the lab.
 - Kubernetes: Orchestrator and scheduler, for running custom and third-party apps.
@@ -21,7 +21,7 @@ Configs and docs for my home lab.
 - Keepalived: Virtual IP for Kubernetes cluster.
 
 ## Projects
-- Home lab dashboard (WIP): Overview of all the software running in the lab.
+- Home lab home page (WIP): Overview of all the software running in the lab.
 - Home lab observability (WIP): Single platform for monitoring the lab.
 - Ad & tracking blocker: Block all those pesky ads and trackers on all my devices and from any location I'm at. Run my own DNS resolver instead of using Google or Cloudflare.
 - Indoor temperature & humidity tracker: Tracking the temperature and humidity at home, especially in the colder months.
@@ -31,4 +31,3 @@ Configs and docs for my home lab.
 ## Future projects
 - Home security camera
 - Authoritative DNS
-- TLS for home lab domains
