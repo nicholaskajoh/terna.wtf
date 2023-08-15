@@ -14,13 +14,31 @@ services:
     volumes:
       - pihole-data:/etc/pihole
       - dnsmasq-data:/etc/dnsmasq.d
+      - /var/log:/var/log:rw
     network_mode: "host"
     restart: unless-stopped
     cap_add:
       - NET_ADMIN # For DHCP.
+    logging:
+      driver: loki # Driver installation: https://grafana.com/docs/loki/latest/clients/docker-driver/
+      options:
+        loki-url: "https://${LOKI_USERNAME}:${LOKI_PASSWORD}@loki.terna.io/loki/api/v1/push"
+
+  promtail:
+    image: grafana/promtail:2.8.4
+    command: -config.file=/etc/promtail/config.yaml
+    restart: always
+    volumes:
+      - /var/log:/var/log
+      - promtail-data:/etc/promtail
+      - type: bind
+        source: /home/nicholask/pi-hole/promtail-config.yaml
+        target: /etc/promtail/config.yaml
 
 volumes:
   pihole-data:
     driver: local
   dnsmasq-data:
+    driver: local
+  promtail-data:
     driver: local

@@ -8,7 +8,10 @@ URL: http://pi-hole.hl.terna.wtf
 
 - Run Pi-hole using Docker:
     ```sh
-    export PIHOLE_WEBPASSWORD=xxxxx && docker compose up -d
+    export PIHOLE_WEBPASSWORD=xxxxx
+    export LOKI_USERNAME=xxxxx
+    export LOKI_PASSWORD=xxxxx
+    docker compose up -d --force-recreate
     ```
 
 - Configure recursive DNS resolver (unbound): https://docs.pi-hole.net/guides/dns/unbound/
