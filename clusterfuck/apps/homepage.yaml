@@ -1,0 +1,167 @@
+# https://github.com/benphelps/homepage
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage-config
+data:
+  # NB: Indent with 4 spaces. 
+  services.yaml: |
+    - Apps:
+        - Pi-hole:
+            href: http://pi-hole.hl.terna.wtf
+            description: Ad/tracking blocker & DNS server.
+            icon: pi-hole.svg
+            widget:
+                type: pihole
+                url: http://pi-hole.hl.terna.wtf
+                key: xxxxx
+
+        - Home Assistant:
+            href: http://home-assistant.hl.terna.wtf:8123
+            description: Home automation system.
+            icon: home-assistant.svg
+
+        - String.is:
+            href: https://string-is.hl.terna.wtf
+            description: String toolkit for developers, providing a collection of converters and formatters.
+
+    - Infra:
+        - Proxmox:
+            href: https://proxmox.hl.terna.wtf:8006
+            description: Hypervisor
+            icon: proxmox.svg
+
+        - Ceph:
+            href: https://proxmox.hl.terna.wtf:8443
+            description: Distributed storage system.
+            icon: ceph.svg
+
+        - Portainer:
+            href: https://portainer.terna.io
+            description: Docker & Kubernetes management platform.
+            icon: portainer.svg
+
+        - DigitalOcean:
+            href: https://cloud.digitalocean.com
+            description: Cloud hosting.
+            icon: digital-ocean.svg
+
+        - Tailscale:
+            href: https://login.tailscale.com/admin/machines
+            description: VPN.
+            icon: tailscale.svg
+
+    - Monitoring:
+        - Grafana:
+            href: https://grafana.terna.io
+            description: Analytics & interactive visualization app.
+            icon: grafana.svg
+
+        - Prometheus:
+            href: https://prometheus.terna.io
+            description: Monitoring and alerting software.
+            icon: prometheus.svg
+
+  settings.yaml: |
+      title: terna.wtf
+      language: en
+      target: _blank
+
+  widgets.yaml: ""
+  bookmarks.yaml: ""
+  docker.yaml: ""
+  kubernetes.yaml: ""
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homepage-deployment
+  namespace: homepage
+  labels:
+    app: homepage-app
+spec:
+  selector:
+    matchLabels:
+      app: homepage-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: homepage-app
+    spec:
+      containers:
+      - name: homepage
+        image: ghcr.io/benphelps/homepage:latest
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: config
+          mountPath: "/app/config"
+        - name: logs
+          mountPath: /app/config/logs
+      volumes:
+      - name: config
+        configMap:
+          name: homepage-config
+      - name: logs
+        emptyDir:
+          {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: homepage-service
+  namespace: homepage
+spec:
+  selector:
+    app: homepage-app
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: 3000
+    protocol: TCP
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: homepage-cert
+  namespace: homepage
+spec:
+  secretName: homepage-cert-secret
+  issuerRef:
+    name: lets-encrypt
+    kind: ClusterIssuer
+  dnsNames:
+    - "terna.wtf"
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: homepage-ingress
+  namespace: homepage
+spec:
+  rules:
+  - host: "terna.wtf"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: homepage-service
+            port:
+              number: 80
+  tls:
+  - hosts:
+      - terna.wtf
+    secretName: homepage-cert-secret
